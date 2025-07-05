@@ -1,25 +1,23 @@
 
 # Vprofile App – CI/CD Pipeline
 
-This repository contains the source code and **Continuous Integration / Continuous Delivery (CI/CD)** configuration for the **Vprofile App**.  
+This repository contains the source code and **Continuous Integration (CI)** configuration for the **Vprofile App**.  
 The pipeline automates code analysis, artifact creation and publication, leveraging AWS services for secure, repeatable delivery.
 
 ---
 
 ## 🏗️ Architecture Overview
 
-![Pipeline Architecture Diagram](ci-cd-pipeline-diagram.png) <!-- Replace with actual image path if different -->
+![Pipeline Architecture Diagram](AWS-Ci.png) <!-- Replace with actual image path if different -->
 
 The diagram above illustrates the high‑level flow:
 
-1. **Code Push** – a developer pushes commits to the source repository.  
-2. **S3 Trigger** – an event in the **BuiltBucket** S3 bucket triggers AWS CodePipeline.  
-3. **AWS CodePipeline** orchestrates the workflow and fans out to two CodeBuild stages.  
-4. **Code Analysis (CodeBuild #1)** – runs unit tests, Checkstyle and SonarCloud analysis.  
-5. **Build Artifact (CodeBuild #2)** – compiles the application and packages a deployable artifact.  
-6. **AWS CodeArtifact** – both builds download Maven dependencies from a private repository.  
-7. **S3 Artifact Storage** – the final `.war` file is uploaded for downstream deployment.  
-8. **SonarCloud** – enforces quality gates before the build can proceed.
+  **Code Push** – a developer pushes commits to the source repository.  
+  **AWS CodePipeline** orchestrates the workflow and fans out to two CodeBuild stages.  
+  **Code Analysis (CodeBuild #1)** – runs unit tests, Checkstyle and SonarCloud analysis.  
+  **Build Artifact (CodeBuild #2)** – compiles the application and packages a deployable artifact.  
+  **AWS CodeArtifact** – both builds download Maven dependencies from a private repository.  
+  **S3 Artifact Storage** – the final `.war` file is uploaded for downstream deployment.  
 
 ---
 
