@@ -6,7 +6,7 @@ The pipeline automates code analysis, artifact creation and publication, leverag
 
 ---
 
-## 🏗️ Architecture Overview
+##  Architecture Overview
 
 ![Pipeline Architecture Diagram](AWS-Ci.png) <!-- Replace with actual image path if different -->
 
@@ -21,9 +21,9 @@ The diagram above illustrates the high‑level flow:
 
 ---
 
-## 🛠️ CI/CD Pipeline Stages
+##   CI/CD Pipeline Stages
 
-### 1️⃣ Code Analysis Stage
+###  Code Analysis Stage
 
 Runs unit tests and static analysis (Checkstyle + SonarCloud).
 
@@ -78,12 +78,12 @@ phases:
 
 ---
 
-### 2️⃣ Build Artifact Stage
+###  Build Artifact Stage
 
 Compiles and packages the application after analysis has passed.
 
 <details>
-<summary>buildspec.yml (artifact)</summary>
+<summary>build_buildspec.yml (artifact)</summary>
 
 ```yaml
 version: 0.2
@@ -117,7 +117,7 @@ artifacts:
 
 ---
 
-## 🔑 Prerequisites
+## Prerequisites
 
 | Requirement | Notes |
 |-------------|-------|
@@ -129,7 +129,7 @@ artifacts:
 
 ---
 
-## ⚙️ Technologies Used
+## Technologies Used
 
 | Purpose                      | Service / Tool          |
 |------------------------------|-------------------------|
@@ -142,8 +142,4 @@ artifacts:
 | Runtime                      | **Java (Corretto 17)**  |
 | JSON Processing              | **jq**                  |
 
----
 
-## 📄 License
-
-This project is licensed under the MIT License – see `LICENSE` for details.
