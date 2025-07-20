@@ -35,7 +35,7 @@ According to the diagram above, the workflow proceeds as follows:
    - After successful validation, the same artifact is promoted and deployed to **AWS Elastic Beanstalk (Prod)**, which also uses **Amazon RDS MySQL** for production data.
 
 > ✅ **All Maven dependencies are securely fetched from AWS CodeArtifact to ensure reproducible builds.**  
-> ✅ **Application database is hosted on Amazon RDS (MySQL) for reliability, backups, and scalability.**
+> ✅ **Application database is hosted on Amazon RDS (MySQL).**
 
 ---
 
