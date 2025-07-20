@@ -41,7 +41,6 @@ All Maven dependencies are served securely from AWS CodeArtifact to ensure a rep
 | Requirement | Notes |
 |-------------|-------|
 | **AWS Account** | IAM permissions for CodePipeline, CodeBuild, S3, CodeArtifact |
-| **AWS CLI** | Configured with appropriate credentials |
 | **SonarCloud Account** | To replicate quality‑gate integration |
 | **Java 17** | Local development & build |
 | **Maven knowledge** | Understanding of `settings.xml`, profiles, etc. |
