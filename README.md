@@ -28,12 +28,14 @@ According to the diagram above, the workflow proceeds as follows:
 
 5. **Software Testing (Development Environment)**  
    - The artifact is deployed to **AWS Elastic Beanstalk (Dev)**.  
+   - The app connects to a managed **Amazon RDS MySQL** instance for its database layer.  
    - Automated or manual tests can be executed to validate the build.
 
 6. **Deploy to Production**  
-   - After successful validation, the same artifact is promoted and deployed to **AWS Elastic Beanstalk (Prod)**.
+   - After successful validation, the same artifact is promoted and deployed to **AWS Elastic Beanstalk (Prod)**, which also uses **Amazon RDS MySQL** for production data.
 
-> ✅ **All Maven dependencies are securely fetched from AWS CodeArtifact to ensure reproducible builds.**
+> ✅ **All Maven dependencies are securely fetched from AWS CodeArtifact to ensure reproducible builds.**  
+> ✅ **Application database is hosted on Amazon RDS (MySQL) for reliability, backups, and scalability.**
 
 ---
 
@@ -41,11 +43,11 @@ According to the diagram above, the workflow proceeds as follows:
 
 | Requirement | Notes |
 |-------------|-------|
-| **AWS Account** | IAM permissions for CodePipeline, CodeBuild, S3, and CodeArtifact are required. |
-| **SonarCloud Account** | Needed for static analysis and quality gate integration. |
-| **Java 17** | Required for local development and build. |
+| **AWS Account** | IAM permissions for CodePipeline, CodeBuild, S3, CodeArtifact, RDS |
+| **Amazon RDS (MySQL)** | A provisioned MySQL instance accessible from Elastic Beanstalk environments |
+| **SonarCloud Account** | Needed for static analysis and quality gate integration |
+| **Java 17** | Required for local development and build |
 | **Maven 3+** | Understanding of `settings.xml`, profiles, etc. |
-| **MySQL 8** | Database used by the application for local and production environments. |
 
 ---
 
@@ -62,17 +64,18 @@ According to the diagram above, the workflow proceeds as follows:
 | Application Runtime          | **Java (Corretto 17)**  |
 | JSON Processing in Builds    | **jq**                  |
 | Deployment Target            | **AWS Elastic Beanstalk** |
+| Managed Database             | **Amazon RDS (MySQL)**  |
 
 ---
 
 ## 📌 Database
 
-**MySQL** is used as the backend database.  
-A pre‑populated SQL dump file is included:
+The application database is hosted on **Amazon RDS for MySQL**.  
+You can import the initial schema and data using the included dump file if needed:
 
 - `src/main/resources/db_backup.sql`
 
-To import this dump into your MySQL server:
+To restore the dump locally or into RDS (via an accessible bastion or connection):
 
 ```bash
-mysql -u <user_name> -p accounts < db_backup.sql
+mysql -h <rds-endpoint> -u <username> -p <database_name> < db_backup.sql
