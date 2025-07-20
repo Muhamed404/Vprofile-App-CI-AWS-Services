@@ -10,21 +10,26 @@ The pipeline automates code analysis, artifact creation, publication, and now de
 ![Pipeline Architecture Diagram](AWS-Ci.png) <!-- Replace with actual image path if different -->
 
 According to the diagram above, the flow is as follows:
-	1.	Push Code – Developer pushes changes to Bitbucket.
-	2.	AWS CodePipeline – Triggers on every change and orchestrates the workflow.
-	3.	Code Analysis –
-	•	CodeBuild downloads dependencies from AWS CodeArtifact
-	•	Runs unit tests, Checkstyle, SonarCloud analysis
-	•	Stops the pipeline if SonarCloud quality gate fails
-	4.	Build Artifact –
-	•	CodeBuild compiles and packages the app
-	•	Pushes the .war artifact to AWS S3
-	5.	Software Testing (Dev Environment) –
-	•	Artifact is deployed to AWS Elastic Beanstalk (Dev)
-	•	Automated or manual tests can be run
-	6.	Deploy to Production –
-	•	After validation, the same artifact is promoted and deployed to AWS Elastic Beanstalk (Prod)
 
+1. **Push Code** – Developer pushes changes to Bitbucket.
+
+2. **AWS CodePipeline** – Triggers on every change and orchestrates the workflow.
+
+3. **Code Analysis**  
+   - CodeBuild downloads dependencies from AWS CodeArtifact  
+   - Runs unit tests, Checkstyle, SonarCloud analysis  
+   - Stops the pipeline if SonarCloud quality gate fails  
+
+4. **Build Artifact**  
+   - CodeBuild compiles and packages the app  
+   - Pushes the `.war` artifact to AWS S3  
+
+5. **Software Testing (Dev Environment)**  
+   - Artifact is deployed to AWS Elastic Beanstalk (Dev)  
+   - Automated or manual tests can be run  
+
+6. **Deploy to Production**  
+   - After validation, the same artifact is promoted and deployed to AWS Elastic Beanstalk (Prod)
 All Maven dependencies are served securely from AWS CodeArtifact to ensure a reproducible build.
 
 ---
