@@ -1,53 +1,55 @@
-#Vprofile App – CI/CD Pipeline
+# Vprofile App – CI/CD Pipeline
 
-This repository contains the source code and Continuous Integration (CI) and Continuous Deployment (CD) configuration for the Vprofile App.
-The pipeline automates code analysis, artifact creation, publication, and now deployment, leveraging AWS services for secure, repeatable delivery.
+This repository contains the source code along with **Continuous Integration (CI)** and **Continuous Deployment (CD)** configurations for the **Vprofile App**.  
+The pipeline automates code analysis, artifact creation, publication, and deployment—leveraging AWS services for a secure, repeatable, and scalable delivery process.
 
 ---
 
-##  Architecture Overview
+## 🚀 Architecture Overview
 
 ![Pipeline Architecture Diagram](AWS-Ci.png) <!-- Replace with actual image path if different -->
 
-According to the diagram above, the flow is as follows:
+According to the diagram above, the workflow proceeds as follows:
 
-1. **Push Code** – Developer pushes changes to Bitbucket.
+1. **Push Code**  
+   Developer pushes changes to **Bitbucket**.
 
-2. **AWS CodePipeline** – Triggers on every change and orchestrates the workflow.
+2. **Pipeline Trigger**  
+   **AWS CodePipeline** triggers automatically on every commit and orchestrates the workflow.
 
 3. **Code Analysis**  
-   - CodeBuild downloads dependencies from AWS CodeArtifact  
-   - Runs unit tests, Checkstyle, SonarCloud analysis  
-   - Stops the pipeline if SonarCloud quality gate fails  
+   - **AWS CodeBuild** downloads dependencies from **AWS CodeArtifact**.  
+   - Runs **unit tests**, **Checkstyle**, and **SonarCloud** analysis.  
+   - Pipeline halts if the **SonarCloud quality gate** fails.
 
 4. **Build Artifact**  
-   - CodeBuild compiles and packages the app  
-   - Pushes the `.war` artifact to AWS S3  
+   - **AWS CodeBuild** compiles and packages the application.  
+   - The generated `.war` artifact is pushed to an **AWS S3 bucket**.
 
-5. **Software Testing (Dev Environment)**  
-   - Artifact is deployed to AWS Elastic Beanstalk (Dev)  
-   - Automated or manual tests can be run  
+5. **Software Testing (Development Environment)**  
+   - The artifact is deployed to **AWS Elastic Beanstalk (Dev)**.  
+   - Automated or manual tests can be executed to validate the build.
 
 6. **Deploy to Production**  
-   - After validation, the same artifact is promoted and deployed to AWS Elastic Beanstalk (Prod)
-All Maven dependencies are served securely from AWS CodeArtifact to ensure a reproducible build.
+   - After successful validation, the same artifact is promoted and deployed to **AWS Elastic Beanstalk (Prod)**.
+
+> ✅ **All Maven dependencies are securely fetched from AWS CodeArtifact to ensure reproducible builds.**
 
 ---
 
-
-
-## Prerequisites
+## ✅ Prerequisites
 
 | Requirement | Notes |
 |-------------|-------|
-| **AWS Account** | IAM permissions for CodePipeline, CodeBuild, S3, CodeArtifact |
-| **SonarCloud Account** | To replicate quality‑gate integration |
-| **Java 17** | Local development & build |
-| **Maven knowledge** | Understanding of `settings.xml`, profiles, etc. |
+| **AWS Account** | IAM permissions for CodePipeline, CodeBuild, S3, and CodeArtifact are required. |
+| **SonarCloud Account** | Needed for static analysis and quality gate integration. |
+| **Java 17** | Required for local development and build. |
+| **Maven 3+** | Understanding of `settings.xml`, profiles, etc. |
+| **MySQL 8** | Database used by the application for local and production environments. |
 
 ---
 
-## Technologies Used
+## 🛠️ Technologies Used
 
 | Purpose                      | Service / Tool          |
 |------------------------------|-------------------------|
@@ -57,11 +59,20 @@ All Maven dependencies are served securely from AWS CodeArtifact to ensure a rep
 | Dependency Management        | **AWS CodeArtifact**    |
 | Static Code Analysis         | **SonarCloud**, **Checkstyle** |
 | Build Automation             | **Apache Maven**        |
-| Runtime                      | **Java (Corretto 17)**  |
-| JSON Processing              | **jq**                  |
-# Prerequisites
-#
-- JDK 11 
-- Maven 3 
-- MySQL 8
+| Application Runtime          | **Java (Corretto 17)**  |
+| JSON Processing in Builds    | **jq**                  |
+| Deployment Target            | **AWS Elastic Beanstalk** |
 
+---
+
+## 📌 Database
+
+**MySQL** is used as the backend database.  
+A pre‑populated SQL dump file is included:
+
+- `src/main/resources/db_backup.sql`
+
+To import this dump into your MySQL server:
+
+```bash
+mysql -u <user_name> -p accounts < db_backup.sql
